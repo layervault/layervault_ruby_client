@@ -1,5 +1,5 @@
 require "layervault/version"
 
-module Layervault
+module LayerVault
   # Your code goes here...
 end
