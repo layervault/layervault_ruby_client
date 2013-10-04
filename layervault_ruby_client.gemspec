@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'layervault_ruby_client/version'
+require 'layervault/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "layervault_ruby_client"
-  spec.version       = LayervaultRubyClient::VERSION
+  spec.version       = Layervault::VERSION
   spec.authors       = ["John McDowall"]
   spec.email         = ["john@mcdowall.info"]
   spec.description   = %q{The LayerVault Ruby API client.}
