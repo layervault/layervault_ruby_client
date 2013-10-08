@@ -27,6 +27,7 @@ module LayerVault
       end
       self
     end
+    alias setup reset!
 
     def api_endpoint
       File.join(@api_endpoint, "")
@@ -37,11 +38,6 @@ module LayerVault
     def options
       Hash[LayerVault::Configurable.keys.map{|key| [key, instance_variable_get(:"@#{key}")]}]
     end
-
-    def fetch_client_id_and_secret(overrides = {})
-      opts = options.merge(overrides)
-      opts.values_at :client_id, :client_secret
-    end
   end
-  
+
 end

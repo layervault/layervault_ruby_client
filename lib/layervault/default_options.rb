@@ -1,15 +1,14 @@
 require 'layervault/version'
 
 module LayerVault
-
   module Default
 
-    API_ENDPOINT = "https://api.github.com".freeze
+    API_ENDPOINT = "https://layervault.com/api/v1/".freeze
     USER_AGENT   = "LayerVault Ruby Gem #{LayerVault::VERSION}".freeze
 
     class << self
       def options
-        Hash[Octokit::Configurable.keys.map{|key| [key, send(key)]}]
+        Hash[LayerVault::Configurable.keys.map{|key| [key, send(key)]}]
       end
 
       def access_token
@@ -18,10 +17,6 @@ module LayerVault
 
       def api_endpoint
         ENV['LAYERVAULT_API_ENDPOINT'] || API_ENDPOINT
-      end
-
-      def auto_paginate
-        ENV['LAYERVAULT_AUTO_PAGINATE']
       end
 
       def client_id
