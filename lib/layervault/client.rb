@@ -5,6 +5,11 @@ require 'layervault/mixins/connection'
 
 require 'layervault/client/users'
 require 'layervault/client/keypair'
+require 'layervault/client/organizations'
+require 'layervault/client/projects'
+require 'layervault/client/folders'
+require 'layervault/client/files'
+require 'layervault/client/revisions'
 
 module LayerVault
   class Client
@@ -14,6 +19,11 @@ module LayerVault
 
     include LayerVault::Client::Users
     include LayerVault::Client::Keypair
+    include LayerVault::Client::Organizations
+    include LayerVault::Client::Projects
+    include LayerVault::Client::Folders
+    include LayerVault::Client::Files
+    include LayerVault::Client::Revisions
 
     def initialize(options={})
       LayerVault::Configurable.keys.each do |key|
