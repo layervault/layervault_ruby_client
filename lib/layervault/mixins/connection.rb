@@ -9,7 +9,6 @@ module LayerVault
     def connection
       @connection ||= Faraday.new(url: @api_endpoint) do |conn|
         conn.request  :url_encoded
-        conn.response :logger
         conn.adapter  Faraday.default_adapter
 
         conn.headers[:user_agent]     = user_agent

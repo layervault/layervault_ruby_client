@@ -1,8 +1,8 @@
 module LayerVault
   class Client
-    module Users
-      def me
-        get "me"
+    module Keypair
+      def keypair
+        get "keypair"
       end
     end
   end

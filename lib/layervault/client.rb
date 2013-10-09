@@ -4,6 +4,7 @@ require 'layervault/mixins/configurable'
 require 'layervault/mixins/connection'
 
 require 'layervault/client/users'
+require 'layervault/client/keypair'
 
 module LayerVault
   class Client
@@ -12,6 +13,7 @@ module LayerVault
     include LayerVault::Connection
 
     include LayerVault::Client::Users
+    include LayerVault::Client::Keypair
 
     def initialize(options={})
       LayerVault::Configurable.keys.each do |key|
