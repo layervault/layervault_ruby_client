@@ -47,5 +47,5 @@ RSpec.configure do |c|
 end
 
 def layervault_url(url)
-  url =~ /^http/ ? url : "https://layervault.com/api/v1#{url}"
+  url =~ /^http/ ? url : "#{ENV['LAYERVAULT_API_ENDPOINT']}#{url}"
 end

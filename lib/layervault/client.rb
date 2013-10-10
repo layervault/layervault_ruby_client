@@ -35,5 +35,9 @@ module LayerVault
       request :get, url, options
     end
 
+    def post(url, options = {})
+      request :post, url, options
+    end
+
   end
 end

@@ -10,7 +10,7 @@ describe 'Projects', :vcr do
   context '/api/v1/organizations/:org_name/:project_name/:folder_path' do
     it 'returns the Organization info' do
       @client.folder('LayerVault', 'Designer News', 'Shirt')
-      assert_requested :get, layervault_url("/organizations/LayerVault/Designer News/Shirt")
+      assert_requested :get, layervault_url("organizations/LayerVault/Designer News/Shirt")
     end
   end
 end
