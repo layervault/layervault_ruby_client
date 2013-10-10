@@ -1,6 +1,5 @@
 module LayerVault
   module Connection
-
     def request(method, path, data, options={})
       @last_response = response = connection.send(method, URI.encode(path.to_s), data, options)
       response.body
@@ -15,6 +14,5 @@ module LayerVault
         conn.headers[:Authorization]  = "Bearer #{access_token}"
       end
     end
-
   end
 end
