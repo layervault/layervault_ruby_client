@@ -7,7 +7,7 @@ describe 'Users', :vcr do
     @client = LayerVault::Client.new
   end
 
-  context '/api/v1/me' do
+  context '.me' do
     it 'returns the User info as JSON' do
       @client.me
       assert_requested :get, layervault_url("me")

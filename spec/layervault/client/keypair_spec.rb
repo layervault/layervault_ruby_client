@@ -7,7 +7,7 @@ describe 'Keypairs', :vcr do
     @client = LayerVault::Client.new
   end
 
-  context '/api/v1/keypair' do
+  context '.keypair' do
     it 'returns the Keypair info' do
       @keys = @client.keypair
       assert_requested :get, layervault_url("keypair")
