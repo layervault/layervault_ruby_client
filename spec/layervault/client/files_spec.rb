@@ -30,7 +30,7 @@ describe 'Files', :vcr do
 
   context '.move_file' do
     it 'moves the File' do
-      @client.move_file('LayerVault', 'Designer News', 'Shirt', 'Blue.psd', 'Shirt', 'MovedBlue.psd')
+      @client.move_file('LayerVault', 'Designer News', 'Shirt', 'Blue.psd', new_folder: 'Shirt', new_filename: 'MovedBlue.psd')
       assert_requested :post, layervault_url("organizations/LayerVault/Designer News/Shirt/Blue.psd/move")
     end
   end

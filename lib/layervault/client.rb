@@ -12,6 +12,9 @@ require 'layervault/client/files'
 require 'layervault/client/revisions'
 
 module LayerVault
+
+  class ClientParamsError < Exception ; end
+
   class Client
     include LayerVault::Authentication
     include LayerVault::Configurable

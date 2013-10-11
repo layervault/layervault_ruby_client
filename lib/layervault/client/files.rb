@@ -13,11 +13,16 @@ module LayerVault
         post "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}"
       end
 
-      def move_file(organization_name, project_name, path, file_name, new_folder, new_filename)
-        post "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/move", new_folder: new_folder, new_filename: new_filename
+      def move_file(organization_name, project_name, path, file_name, options={})
+        raise ClientParamsError.new("You must specify the new_folder option to specify the destination folder") unless options.fetch(:new_folder, nil)
+        raise ClientParamsError.new("You must specify the new_filename option to specify the destination folder") unless options.fetch(:new_filename, nil)
+
+        post "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/move", options
       end
 
       def sync_check(organization_name, project_name, path, file_name, options={})
+        raise ClientParamsError.new("You must specify the md5 option of the file you are trying to sync check.") unless options.fetch(:md5, nil)
+
         get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/sync_check", options
       end
     end

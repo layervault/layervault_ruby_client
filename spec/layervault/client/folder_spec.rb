@@ -23,14 +23,14 @@ describe 'Projects', :vcr do
 
   context '.move_folder' do
     it 'moves the folder' do
-      @client.move_folder('LayerVault', 'Designer News', 'Shirt', 'FancyShirt')
+      @client.move_folder('LayerVault', 'Designer News', 'Shirt', to: 'FancyShirt')
       assert_requested :post, layervault_url("organizations/LayerVault/Designer News/Shirt/move")
     end
   end
 
   context '.change_folder_color' do
     it 'changes the folder color' do
-      @client.change_folder_color('LayerVault', 'Designer News', 'Shirt', '#000000')
+      @client.change_folder_color('LayerVault', 'Designer News', 'Shirt', color: '#000000')
       assert_requested :put, layervault_url("organizations/LayerVault/Designer News/Shirt")
     end
   end
