@@ -34,4 +34,11 @@ describe 'Files', :vcr do
       assert_requested :post, layervault_url("organizations/LayerVault/Designer News/Shirt/Blue.psd/move")
     end
   end
+
+  context '.sync_check' do
+    it 'performs a sync check on the path' do
+      @client.sync_check('LayerVault', 'Designer News', 'Shirt', 'Blue.psd', md5: 'asdaasdasddad')
+      assert_requested :get, layervault_url("organizations/LayerVault/Designer News/Shirt/Blue.psd/sync_check?md5=asdaasdasddad")
+    end
+  end
 end
