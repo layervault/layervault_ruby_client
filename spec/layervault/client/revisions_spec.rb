@@ -23,7 +23,7 @@ describe 'Revisions', :vcr do
 
   context '.revisions' do
     it 'returns the Revisions info' do
-      @client.revisions('LayerVault', 'Designer News', 'Shirt', 'Blue.psd', 1)
+      @client.revisions('LayerVault', 'Designer News', 'Shirt', 'Blue.psd', 1, first_seen:1)
       assert_requested :get, layervault_url("organizations/LayerVault/Designer News/Shirt/Blue.psd/1/revisions")
     end
   end

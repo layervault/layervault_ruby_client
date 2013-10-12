@@ -2,7 +2,7 @@ module LayerVault
 
   module Configurable
 
-    attr_accessor :access_token, :api_endpoint, :client_id, :user_agent
+    attr_accessor :access_token, :api_endpoint, :client_id, :user_agent, :middleware
     attr_writer   :client_secret, :password
 
     class << self
@@ -13,7 +13,8 @@ module LayerVault
           :user_agent,
           :client_id,
           :client_secret,
-          :password
+          :password,
+          :middleware
         ]
       end
     end

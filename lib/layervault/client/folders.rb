@@ -20,7 +20,6 @@ module LayerVault
 
       def change_folder_color(organization_name, project_name, path, options={})
         raise ClientParamsError.new("You must specify the color option for the new color to apply to the folder.") unless options.fetch(:color, nil)
-
         put "organizations/#{organization_name}/#{project_name}/#{path}", options
       end
     end

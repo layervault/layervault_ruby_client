@@ -1,10 +1,16 @@
 require 'layervault/version'
+require 'layervault/response/raise_error'
 
 module LayerVault
   module Default
 
     API_ENDPOINT = "https://layervault.com/api/v1/".freeze
     USER_AGENT   = "LayerVault Ruby Gem #{LayerVault::VERSION}".freeze
+    MIDDLEWARE = Faraday::Builder.new do |builder|
+      builder.use LayerVault::Response::RaiseError
+      builder.request :url_encoded
+      builder.adapter Faraday.default_adapter
+    end
 
     class << self
       def options
@@ -33,6 +39,10 @@ module LayerVault
 
       def user_agent
         ENV['LAYERVAULT_USER_AGENT'] || USER_AGENT
+      end
+
+      def middleware
+        MIDDLEWARE
       end
     end
   end

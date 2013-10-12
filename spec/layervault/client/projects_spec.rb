@@ -16,17 +16,18 @@ describe 'Projects', :vcr do
 
   context '.create_project' do
     it 'Creates a new project' do
-      project = @client.create_project('LayerVault', 'Test Doge Project')
+      rev = SecureRandom.random_number(100)
+      project = @client.create_project('LayerVault', "Test Doge Project #{rev}")
       expect(project).to_not be_empty
-      assert_requested :post, layervault_url("organizations/LayerVault/Test Doge Project")
+      assert_requested :post, layervault_url("organizations/LayerVault/Test Doge Project #{rev}")
     end
   end
 
   context '.delete_project' do
-    it 'Creates a new project' do
-      @client.create_project('LayerVault', 'Test Doge Project')
-      @client.delete_project('LayerVault', 'Test Doge Project')
-      assert_requested :delete, layervault_url("organizations/LayerVault/Test Doge Project")
+    it 'Deletes the project' do
+      @client.create_project('LayerVault', 'Test Doge Project Sacrifice')
+      @client.delete_project('LayerVault', 'Test Doge Project Sacrifice')
+      assert_requested :delete, layervault_url("organizations/LayerVault/Test Doge Project Sacrifice")
     end
   end
 end

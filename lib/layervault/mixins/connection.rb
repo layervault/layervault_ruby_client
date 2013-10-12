@@ -6,10 +6,7 @@ module LayerVault
     end
 
     def connection
-      @connection ||= Faraday.new(url: @api_endpoint) do |conn|
-        conn.request  :url_encoded
-        conn.adapter  Faraday.default_adapter
-
+      @connection ||= Faraday.new(url: @api_endpoint, builder: @middleware) do |conn|
         conn.headers[:user_agent]     = user_agent
         conn.headers[:Authorization]  = "Bearer #{access_token}"
       end

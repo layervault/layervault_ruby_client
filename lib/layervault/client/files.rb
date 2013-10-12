@@ -5,8 +5,9 @@ module LayerVault
         get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}"
       end
 
-      def delete_file(organization_name, project_name, path, file_name)
-        delete "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}"
+      def delete_file(organization_name, project_name, path, file_name, options={})
+        raise ClientParamsError.new("You must specify the md5 option of the file you are trying to delete.") unless options.fetch(:md5, nil)
+        delete "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}", options
       end
 
       def create_file(organization_name, project_name, path, file_name)
@@ -15,7 +16,7 @@ module LayerVault
 
       def move_file(organization_name, project_name, path, file_name, options={})
         raise ClientParamsError.new("You must specify the new_folder option to specify the destination folder") unless options.fetch(:new_folder, nil)
-        raise ClientParamsError.new("You must specify the new_filename option to specify the destination folder") unless options.fetch(:new_filename, nil)
+        raise ClientParamsError.new("You must specify the new_filename option to specify the destination folder") unless options.fetch(:new_file_name, nil)
 
         post "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/move", options
       end

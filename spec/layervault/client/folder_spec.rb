@@ -16,8 +16,9 @@ describe 'Projects', :vcr do
 
   context '.create_folder' do
     it 'creates the Folder' do
-      @client.create_folder('LayerVault', 'Designer News', 'NewShirt')
-      assert_requested :post, layervault_url("organizations/LayerVault/Designer News/NewShirt")
+      rev = SecureRandom.random_number(100)
+      @client.create_folder('LayerVault', 'Designer News', "NewShirt #{rev}")
+      assert_requested :post, layervault_url("organizations/LayerVault/Designer News/NewShirt #{rev}")
     end
   end
 
