@@ -10,8 +10,10 @@ module LayerVault
         delete "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}", options
       end
 
-      def create_file(organization_name, project_name, path, file_name)
-        post "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}"
+      def create_file(organization_name, project_name, path, file_name, options={})
+        raise ClientParamsError.new("You must specify the MD5 option for the file you want to create.") unless options.fetch(:md5, nil)
+        raise ClientParamsError.new("You must specify the file_data or remote_url options for the file you want to create.") if (options.fetch(:file_data, nil) && options.fetch(:remote_url, nil))
+        put "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}", options
       end
 
       def move_file(organization_name, project_name, path, file_name, options={})

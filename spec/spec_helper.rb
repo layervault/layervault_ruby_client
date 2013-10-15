@@ -31,7 +31,9 @@ VCR.configure do |c|
   c.default_cassette_options = {
     :serialize_with             => :json,
     :preserve_exact_body_bytes  => true,
-    :decode_compressed_response => true
+    :decode_compressed_response => true,
+    :match_requests_on => [:method,
+      VCR.request_matchers.uri_without_param(:md5)]
   }
 
   c.cassette_library_dir = 'spec/cassettes'
@@ -48,4 +50,11 @@ end
 
 def layervault_url(url)
   url =~ /^http/ ? url : "#{ENV['LAYERVAULT_API_ENDPOINT']}#{url}"
+end
+
+def random_md5
+  identifier = ""
+  chars = "0123456789abcdef"
+  32.times { identifier << chars[rand(chars.size)] }
+  identifier
 end

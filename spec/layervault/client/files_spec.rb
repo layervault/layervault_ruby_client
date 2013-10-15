@@ -5,46 +5,47 @@ describe 'Files', :vcr do
   before do
     LayerVault.reset!
     @client = LayerVault::Client.new
+    @md5    = random_md5
+    @client.create_file('LayerVault', 'api-playground', '', 'Test.psd', md5: @md5, remote_url: 'http://jmd.fm/0j1f302H2t1X/download/Test.psd')
   end
 
-  context '.file' do
-    it 'returns the File info' do
-      @client.file('LayerVault', 'LayerVault', 'Blog', 'Sketches.psd')
-      assert_requested :get, layervault_url("organizations/LayerVault/LayerVault/Blog/Sketches.psd")
-    end
-  end
-
-  context '.delete_file' do
-    before do
-      @client.create_file('LayerVault', 'LayerVault', 'Blog', 'Test.psd')
-    end
-
-    it 'deletes the File info' do
-      data = MultiJson.load(@client.file('LayerVault', 'LayerVault', 'Blog', 'Template.psd'))
-      @client.delete_file('LayerVault', 'LayerVault', 'Blog', 'Template.psd', md5: data['md5'])
-      assert_requested :get, layervault_url("organizations/LayerVault/LayerVault/Blog/Template.psd")
-      assert_requested :delete, layervault_url("organizations/LayerVault/LayerVault/Blog/Template.psd?md5=#{data['md5']}")
-    end
+  after do
+    @client.delete_file('LayerVault', 'api-playground', '', 'Test.psd', md5: @md5)
   end
 
   context '.create_file' do
     it 'creates the File' do
-      @client.create_file('LayerVault', 'LayerVault', 'Blog', 'NewSketches.psd')
-      assert_requested :post, layervault_url("organizations/LayerVault/LayerVault/Blog/NewSketches.psd")
+      assert_requested :put, layervault_url("organizations/LayerVault/api-playground/Test.psd")
+    end
+  end
+
+  context '.file' do
+    it 'returns the File info' do
+      @client.file('LayerVault', 'api-playground', '', 'Test.psd')
+      assert_requested :get, layervault_url("organizations/LayerVault/api-playground/Test.psd")
+    end
+  end
+
+  context '.delete_file' do
+    it 'deletes the File' do
+      delete_md5 = random_md5
+      @client.create_file('LayerVault', 'api-playground', '', 'DeleteTest.psd', md5: delete_md5, remote_url: 'http://jmd.fm/0j1f302H2t1X/download/Test.psd')
+      @client.delete_file('LayerVault', 'api-playground', '', 'DeleteTest.psd', md5: delete_md5)
+      assert_requested :delete, layervault_url("organizations/LayerVault/api-playground/DeleteTest.psd?md5=#{delete_md5}")
     end
   end
 
   context '.move_file' do
     it 'moves the File' do
-      @client.move_file('LayerVault', 'LayerVault', 'Blog', 'Sketches.psd', new_folder: 'Blog', new_file_name: 'MovedSketches.psd')
-      assert_requested :post, layervault_url("organizations/LayerVault/LayerVault/Blog/Sketches.psd/move")
+      @client.move_file('LayerVault', 'api-playground', '', 'Test.psd', new_folder: 'Blog', new_file_name: 'MovedTest.psd')
+      assert_requested :post, layervault_url("organizations/LayerVault/api-playground/Test.psd/move")
     end
   end
 
   context '.sync_check' do
     it 'performs a sync check on the path' do
-      @client.sync_check('LayerVault', 'LayerVault', 'Blog', 'Sketches.psd', md5: 'asdaasdasddad')
-      assert_requested :get, layervault_url("organizations/LayerVault/LayerVault/Blog/Sketches.psd/sync_check?md5=asdaasdasddad")
+      @client.sync_check('LayerVault', 'api-playground', '', 'Test.psd', md5: @md5+'a')
+      assert_requested :get, layervault_url("organizations/LayerVault/api-playground/Test.psd/sync_check?md5=#{@md5}a")
     end
   end
 end

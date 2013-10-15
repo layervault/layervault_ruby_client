@@ -9,17 +9,20 @@ describe 'Projects', :vcr do
 
   context '.project' do
     it 'returns the Organization info' do
-      @client.project('LayerVault', 'Designer News')
-      assert_requested :get, layervault_url("organizations/LayerVault/Designer News")
+      @client.project('LayerVault', 'api-playground')
+      assert_requested :get, layervault_url("organizations/LayerVault/api-playground")
     end
   end
 
   context '.create_project' do
+    after do
+      @client.delete_project('LayerVault', 'Test Doge Project')
+    end
+
     it 'Creates a new project' do
-      rev = SecureRandom.random_number(100)
-      project = @client.create_project('LayerVault', "Test Doge Project #{rev}")
+      project = @client.create_project('LayerVault', "Test Doge Project")
       expect(project).to_not be_empty
-      assert_requested :post, layervault_url("organizations/LayerVault/Test Doge Project #{rev}")
+      assert_requested :post, layervault_url("organizations/LayerVault/Test Doge Project")
     end
   end
 

@@ -5,8 +5,9 @@ module LayerVault
         get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}"
       end
 
-      def previews(organization_name, project_name, path, file_name, revision)
-        get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/previews"
+      def previews(organization_name, project_name, path, file_name, revision, options={})
+        raise ClientParamsError.new("You must specify the :w (width) and :h (height) options for the previews.") unless options.fetch(:w, nil) && options.fetch(:h, nil)
+        get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/previews", options
       end
 
       def revisions(organization_name, project_name, path, file_name, revision, options={})
