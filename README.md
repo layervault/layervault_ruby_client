@@ -10,7 +10,6 @@ Currently only [Resource Owner Credentials](https://github.com/applicake/doorkee
 
 1. Register or choose an application from https://layervault.com/oauth/applications/ and note the ```client_id``` and ```client_secret```.
 2. Plug those values into:
-
 ```
 curl -i https://layervault.com/oauth/token \
 -F grant_type="password" \
@@ -19,10 +18,9 @@ curl -i https://layervault.com/oauth/token \
 -F client_id="<client_id_goes_here>" \
 -F client_secret="<client_secret_goes_here>"
 ```
-
 3. You now have an access token. You can make API requests by calling via CURL like so:
 
-``` curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me'
+``` curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me' ```
 
 ## Access Tokens
 
@@ -42,6 +40,6 @@ We've made an [Omniauth Authentication Strategy](https://github.com/layervault/o
 
 ## Running the test suite.
 
-```LAYERVAULT_API_ENDPOINT='https://layervault.com/api/v1/' LAYERVAULT_ACCESS_TOKEN=<your_access_token> be rspec spec/layervault/client```
+```LAYERVAULT_API_ENDPOINT='https://layervault.com/api/v1/' LAYERVAULT_ACCESS_TOKEN=<your_access_token> be rspec spec/layervault/client ```
 
 The test suite uses VCR to save making requests against the server.
