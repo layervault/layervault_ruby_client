@@ -1,7 +1,5 @@
 module LayerVault
-
   module Configurable
-
     attr_accessor :access_token, :api_endpoint, :client_id, :user_agent, :middleware
     attr_writer   :client_secret, :password
 
@@ -29,6 +27,7 @@ module LayerVault
       end
       self
     end
+
     alias setup reset!
 
     def api_endpoint
@@ -41,5 +40,4 @@ module LayerVault
       Hash[LayerVault::Configurable.keys.map{|key| [key, instance_variable_get(:"@#{key}")]}]
     end
   end
-
 end

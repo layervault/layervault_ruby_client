@@ -1,4 +1,5 @@
 require 'faraday'
+
 require 'layervault/mixins/authentication'
 require 'layervault/mixins/configurable'
 require 'layervault/mixins/connection'

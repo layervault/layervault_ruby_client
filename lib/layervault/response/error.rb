@@ -8,17 +8,17 @@ module LayerVault
         headers = response[:response_headers]
 
         if klass =  case status
-                    when 400      then LayerVault::Response::BadRequest
-                    when 401      then LayerVault::Response::Unauthorized
-                    when 403      then LayerVault::Response::Forbidden
-                    when 404      then LayerVault::Response::NotFound
-                    when 406      then LayerVault::Response::NotAcceptable
-                    when 400..499 then LayerVault::Response::ClientError
-                    when 500      then LayerVault::Response::InternalServerError
-                    when 501      then LayerVault::Response::NotImplemented
-                    when 502      then LayerVault::Response::BadGateway
-                    when 503      then LayerVault::Response::ServiceUnavailable
-                    when 500..599 then LayerVault::Response::ServerError
+                      when 400      then LayerVault::Response::BadRequest
+                      when 401      then LayerVault::Response::Unauthorized
+                      when 403      then LayerVault::Response::Forbidden
+                      when 404      then LayerVault::Response::NotFound
+                      when 406      then LayerVault::Response::NotAcceptable
+                      when 400..499 then LayerVault::Response::ClientError
+                      when 500      then LayerVault::Response::InternalServerError
+                      when 501      then LayerVault::Response::NotImplemented
+                      when 502      then LayerVault::Response::BadGateway
+                      when 503      then LayerVault::Response::ServiceUnavailable
+                      when 500..599 then LayerVault::Response::ServerError
                     end
           klass.new(response)
         end
@@ -29,8 +29,6 @@ module LayerVault
         super(build_error_message)
       end
 
-      # Array of validation errors
-      # @return [Array<Hash>] Error info
       def errors
         if data && data.is_a?(Hash)
           data[:errors] || []
@@ -41,20 +39,16 @@ module LayerVault
 
       private
 
-      def data
-        @data ||=
-          if (body = @response[:body]) && !body.empty?
-            if body.is_a?(String) &&
-              @response[:response_headers] &&
-              @response[:response_headers][:content_type] =~ /json/
+      def build_error_message
+        return nil if @response.nil?
 
-              MultiJson.load(body)
-            else
-              body
-            end
-          else
-            nil
-          end
+        message =  "#{@response[:method].to_s.upcase} "
+        message << "#{@response[:url].to_s}: "
+        message << "#{@response[:status]} - "
+        message << "#{response_message}" unless response_message.nil?
+        message << "#{response_error}" unless response_error.nil?
+        message << "#{response_error_summary}" unless response_error_summary.nil?
+        message
       end
 
       def response_message
@@ -81,33 +75,37 @@ module LayerVault
         summary
       end
 
-      def build_error_message
-        return nil if @response.nil?
+      def data
+        @data ||=
+          if (body = @response[:body]) && !body.empty?
+            if body.is_a?(String) &&
+              @response[:response_headers] &&
+              @response[:response_headers][:content_type] =~ /json/
 
-        message =  "#{@response[:method].to_s.upcase} "
-        message << "#{@response[:url].to_s}: "
-        message << "#{@response[:status]} - "
-        message << "#{response_message}" unless response_message.nil?
-        message << "#{response_error}" unless response_error.nil?
-        message << "#{response_error_summary}" unless response_error_summary.nil?
-        message
+              MultiJson.load(body)
+            else
+              body
+            end
+          else
+            nil
+          end
       end
     end
 
-      class ClientError < Error; end
+    class ClientError < Error; end
 
-      class BadRequest < ClientError; end
-      class Unauthorized < ClientError; end
-      class Forbidden < ClientError; end
-      class TooManyRequests < Forbidden; end
-      class NotFound < ClientError; end
-      class NotAcceptable < ClientError; end
+    class BadRequest < ClientError; end
+    class Unauthorized < ClientError; end
+    class Forbidden < ClientError; end
+    class TooManyRequests < Forbidden; end
+    class NotFound < ClientError; end
+    class NotAcceptable < ClientError; end
 
-      class ServerError < Error; end
+    class ServerError < Error; end
 
-      class InternalServerError < ServerError; end
-      class NotImplemented < ServerError; end
-      class BadGateway < ServerError; end
-      class ServiceUnavailable < ServerError; end
+    class InternalServerError < ServerError; end
+    class NotImplemented < ServerError; end
+    class BadGateway < ServerError; end
+    class ServiceUnavailable < ServerError; end
   end
 end

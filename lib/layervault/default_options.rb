@@ -1,13 +1,14 @@
 require 'layervault/version'
-require 'layervault/response/raise_error'
+require 'layervault/middleware/raise_error'
 
 module LayerVault
   module Default
 
     API_ENDPOINT = "https://layervault.com/api/v1/".freeze
     USER_AGENT   = "LayerVault Ruby Gem #{LayerVault::VERSION}".freeze
+
     MIDDLEWARE = Faraday::Builder.new do |builder|
-      builder.use LayerVault::Response::RaiseError
+      builder.use LayerVault::Middleware::RaiseError
       builder.request :url_encoded
       builder.adapter Faraday.default_adapter
     end
