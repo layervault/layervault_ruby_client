@@ -1,7 +1,5 @@
-require 'hashie'
-
 module LayerVault
-  class Keypair < Hashie::Mash
+  class Keypair < LayerVault::Model
     class << self
       def fetch
         resp = MultiJson.decode(LayerVault.client.keypair)

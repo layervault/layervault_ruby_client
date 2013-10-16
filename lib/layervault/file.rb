@@ -1,7 +1,5 @@
-require 'hashie'
-
 module LayerVault
-  class File < Hashie::Mash
+  class File < LayerVault::Model
     class << self
       def for(organization, project, folder_path, file_name)
         resp = MultiJson.decode(LayerVault.client.file(organization, project, folder_path, file_name))

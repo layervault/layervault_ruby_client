@@ -12,6 +12,7 @@ require 'layervault/client/folders'
 require 'layervault/client/files'
 require 'layervault/client/revisions'
 
+require 'layervault/model'
 require 'layervault/organization'
 require 'layervault/user'
 require 'layervault/project'

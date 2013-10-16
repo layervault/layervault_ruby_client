@@ -1,7 +1,5 @@
-require 'hashie'
-
 module LayerVault
-  class User < Hashie::Mash
+  class User < LayerVault::Model
     class << self
       def me
         resp = MultiJson.decode(LayerVault.client.me)
