@@ -4,8 +4,7 @@ module LayerVault
   class Client
     module Files
       def file(organization_name, project_name, path, file_name)
-        resp = MultiJson.decode(get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}")
-        File.new(resp)
+        get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}"
       end
 
       def delete_file(organization_name, project_name, path, file_name, options={})

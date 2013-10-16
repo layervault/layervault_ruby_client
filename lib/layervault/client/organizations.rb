@@ -4,8 +4,7 @@ module LayerVault
   class Client
     module Organizations
       def organization(name)
-        resp = MultiJson.decode(get "organizations/#{name}")
-        Organization.new(resp)
+        get "organizations/#{name}"
       end
     end
   end

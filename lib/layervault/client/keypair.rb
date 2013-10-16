@@ -4,8 +4,7 @@ module LayerVault
   class Client
     module Keypair
       def keypair
-        resp = MultiJson.decode(get "keypair")
-        LayerVault::Keypair.new(resp)
+        get "keypair"
       end
     end
   end
