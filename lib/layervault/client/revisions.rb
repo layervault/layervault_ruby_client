@@ -1,8 +1,11 @@
+require 'multi_json'
+
 module LayerVault
   class Client
     module Revisions
       def revision(organization_name, project_name, path, file_name, revision)
-        get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}"
+        resp = MultiJson.decode(get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}")
+        Revision.new(resp)
       end
 
       def previews(organization_name, project_name, path, file_name, revision, options={})

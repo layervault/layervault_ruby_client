@@ -1,8 +1,11 @@
+require 'multi_json'
+
 module LayerVault
   class Client
     module Users
       def me
-        get "me"
+        resp = MultiJson.decode(get "me")
+        User.new(resp)
       end
     end
   end

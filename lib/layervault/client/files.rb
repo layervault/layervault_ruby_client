@@ -1,8 +1,11 @@
+require 'multi_json'
+
 module LayerVault
   class Client
     module Files
       def file(organization_name, project_name, path, file_name)
-        get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}"
+        resp = MultiJson.decode(get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}")
+        File.new(resp)
       end
 
       def delete_file(organization_name, project_name, path, file_name, options={})
@@ -25,7 +28,6 @@ module LayerVault
 
       def sync_check(organization_name, project_name, path, file_name, options={})
         raise ClientParamsError.new("You must specify the md5 option of the file you are trying to sync check.") unless options.fetch(:md5, nil)
-
         get "organizations/#{organization_name}/#{project_name}/#{path}/#{file_name}/sync_check", options
       end
     end

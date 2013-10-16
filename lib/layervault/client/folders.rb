@@ -1,8 +1,11 @@
+require 'multi_json'
+
 module LayerVault
   class Client
     module Folders
       def folder(organization_name, project_name, path)
-        get "organizations/#{organization_name}/#{project_name}/#{path}"
+        resp = MultiJson.decode(get "organizations/#{organization_name}/#{project_name}/#{path}")
+        Folder.new(resp)
       end
 
       def delete_folder(organization_name, project_name, path)
