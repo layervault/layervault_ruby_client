@@ -3,7 +3,8 @@ module LayerVault
     class << self
       def for( organization )
         resp = MultiJson.decode(LayerVault.client.organization( organization ))
-        build_association(resp, :projects)
+        instance = build_associations(resp, :projects)
+        instance.set_context(organization: organization)
       end
     end
   end

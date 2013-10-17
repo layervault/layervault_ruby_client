@@ -3,28 +3,39 @@ require 'hashie'
 module LayerVault
   class Model < Hashie::Mash
     CLASS_MAP = {
-      projects: 'LayerVault::Project'
+      projects: 'LayerVault::Project',
+      folders: 'LayerVault::Folder',
+      files: 'LayerVault::File',
+      revisions: 'LayerVault::Revision'
     }
 
-    private
+    class << self
+      def build_associations(hash, *associations)
+        mapping = {}
 
-    def build_association(resp, *associations)
-      mapping = {}
+        associations.each do |association|
+          mapping[association] = hash.fetch(association.to_s, {})
+          hash.delete(association) if mapping[association]
+        end
 
-      associations.each do |association|
-        mapping[association] = resp.fetch(association.to_s, {})
-        resp.delete(association) if mapping[association]
+        instance = new(hash)
+
+        associations.each do |association|
+          klass = Kernel.const_get(CLASS_MAP[association])
+          objs = mapping[association].map { |p| klass.new(p) }
+          instance[association.to_s] = objs
+        end
+
+        instance
       end
+    end
 
-      instance = new(resp)
-
-      associations.each do |association|
-        klass = Kernel.const_get(CLASS_MAP[association])
-        objs = mapping[association].map { |p| klass.new(p) }
-        instance[association.to_s] = objs
+    def set_context(context_arguments={})
+      self.context = {}
+      context_arguments.each do |argument, value|
+        self.context[argument] = value
       end
-
-      instance
+      self
     end
   end
 end
