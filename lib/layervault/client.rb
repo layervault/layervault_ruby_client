@@ -1,4 +1,5 @@
 require 'faraday'
+require 'multi_json'
 
 require 'layervault/mixins/authentication'
 require 'layervault/mixins/configurable'

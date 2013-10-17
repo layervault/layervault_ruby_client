@@ -1,5 +1,3 @@
-require 'multi_json'
-
 module LayerVault
   class Client
     module Files
