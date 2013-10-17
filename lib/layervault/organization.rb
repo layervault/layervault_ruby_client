@@ -7,5 +7,13 @@ module LayerVault
         instance.set_context(organization: organization)
       end
     end
+
+    def create_project(project_name)
+      LayerVault.client.create_project( context.organization, project_name )
+    end
+
+    def delete_project(project_name)
+      LayerVault.client.create_project( context.organization, project_name )
+    end
   end
 end

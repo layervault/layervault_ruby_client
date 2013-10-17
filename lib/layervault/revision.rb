@@ -7,5 +7,17 @@ module LayerVault
         instance.set_context(organization: organization, project: project, folder_path: folder_path, file_name: file_name, revision: revision)
       end
     end
+
+    def previews(width, height)
+      LayerVault.client.previews(organization, project, folder_path, file_name, revision, w: width, h: height)
+    end
+
+    def revisions(options={})
+      LayerVault.client.revisions(organization, project, folder_path, file_name, revision, first_seen: options[:first_seen], last_seen: options[:last_seen])
+    end
+
+    def meta
+      LayerVault.client.meta(organization, project, folder_path, file_name, revision)
+    end
   end
 end
