@@ -22,6 +22,17 @@ curl -i https://layervault.com/oauth/token \
 
 ``` curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me' ```
 
+## Making API calls
+
+You can use the LayerVault.client.<api_operation> methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
+
+```
+  p = LayerVault::Organization.for('layervault')
+  p.create_project('my new project')
+```
+
+And so on.
+
 ## Access Tokens
 
 Access Tokens are valid for two hours only. When you request a token, you are also told how long the token is valid for, in seconds, as part of the token response:
