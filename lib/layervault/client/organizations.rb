@@ -2,7 +2,7 @@ module LayerVault
   class Client
     module Organizations
       def organization(name)
-        get "organizations/#{name}"
+        get "#{name}"
       end
     end
   end

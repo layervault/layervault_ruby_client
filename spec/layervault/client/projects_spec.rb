@@ -10,7 +10,7 @@ describe 'Projects', :vcr do
   context '.project' do
     it 'returns the Organization info' do
       @client.project('LayerVault', 'api-playground')
-      assert_requested :get, layervault_url("organizations/LayerVault/api-playground")
+      assert_requested :get, layervault_url("LayerVault/api-playground")
     end
   end
 
@@ -22,7 +22,7 @@ describe 'Projects', :vcr do
     it 'Creates a new project' do
       project = @client.create_project('LayerVault', "Test Doge Project")
       expect(project).to_not be_empty
-      assert_requested :post, layervault_url("organizations/LayerVault/Test Doge Project")
+      assert_requested :post, layervault_url("LayerVault/Test Doge Project")
     end
   end
 
@@ -30,7 +30,7 @@ describe 'Projects', :vcr do
     it 'Deletes the project' do
       @client.create_project('LayerVault', 'Test Doge Project Sacrifice')
       @client.delete_project('LayerVault', 'Test Doge Project Sacrifice')
-      assert_requested :delete, layervault_url("organizations/LayerVault/Test Doge Project Sacrifice")
+      assert_requested :delete, layervault_url("LayerVault/Test Doge Project Sacrifice")
     end
   end
 end

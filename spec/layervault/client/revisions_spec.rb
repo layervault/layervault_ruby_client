@@ -12,28 +12,28 @@ describe 'Revisions', :vcr do
   context '.revision' do
     it 'returns the Revision info' do
       @client.revision('LayerVault', 'api-playground', '', 'Test.psd', 1)
-      assert_requested :get, layervault_url("organizations/LayerVault/api-playground/Test.psd/1")
+      assert_requested :get, layervault_url("LayerVault/api-playground/Test.psd/1")
     end
   end
 
   context '.previews' do
     it 'returns the Preview info' do
       @client.previews('LayerVault', 'api-playground', '', 'Test.psd', 1, w:100, h:100)
-      assert_requested :get, layervault_url("organizations/LayerVault/api-playground/Test.psd/1/previews?h=100&w=100")
+      assert_requested :get, layervault_url("LayerVault/api-playground/Test.psd/1/previews?h=100&w=100")
     end
   end
 
   context '.revisions' do
     it 'returns the Revisions info' do
       @client.revisions('LayerVault', 'api-playground', '', 'Test.psd', 1, first_seen:1)
-      assert_requested :get, layervault_url("organizations/LayerVault/api-playground/Test.psd/1/revisions?first_seen=1")
+      assert_requested :get, layervault_url("LayerVault/api-playground/Test.psd/1/revisions?first_seen=1")
     end
   end
 
   context '.meta' do
     it 'returns the Meta info' do
       @client.meta('LayerVault', 'api-playground', '', 'Test.psd', 1)
-      assert_requested :get, layervault_url("organizations/LayerVault/api-playground/Test.psd/1/meta")
+      assert_requested :get, layervault_url("LayerVault/api-playground/Test.psd/1/meta")
     end
   end
 end
