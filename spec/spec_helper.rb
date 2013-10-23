@@ -58,3 +58,11 @@ def random_md5
   32.times { identifier << chars[rand(chars.size)] }
   identifier
 end
+
+def test_org
+  'layervault-test'
+end
+
+def test_project
+ 'test-api-playground'
+end

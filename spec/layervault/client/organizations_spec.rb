@@ -9,8 +9,8 @@ describe 'Organizations', :vcr do
 
   context '.organization' do
     it 'returns the Organization info' do
-      @client.organization('LayerVault')
-      assert_requested :get, layervault_url("LayerVault")
+      @client.organization(test_org)
+      assert_requested :get, layervault_url(test_org)
     end
   end
 end
