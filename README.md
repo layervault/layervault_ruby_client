@@ -1,6 +1,6 @@
 # LayerVault Ruby API Client
 
-This is the Ruby client library that wraps the LayerVault API.
+This is the Ruby client library that wraps the [LayerVault API](https://github.com/layervault/api).
 
 ## Supported oAuth flows
 
@@ -33,6 +33,18 @@ You can use the LayerVault.client.<api_operation> methods to call the API to per
 
 And so on.
 
+### Simple Object Model
+
+There's a very simple object model provided by classes that implement [Hashie](https://github.com/intridea/hashie) objects that wrap the JSON responses from the ```LayerVault.client``` interface. The objects mostly all follow a ```.for``` pattern that accepts the appropriate number of arguments for the level of nesting the object represents. For example,
+
+  - Organizations require the name of the organization: ```Organization.for('layervault')
+  - Projects require the name of the organization and the project name: ```Project.for('layervault', 'Designer News')
+  - ... and so on ...
+
+#### Associations
+
+When using the simple object model, associations will be hydrated into the correct child objects allowing a simple level of traversal down the object model hierarchy.
+
 ## Access Tokens
 
 Access Tokens are valid for two hours only. When you request a token, you are also told how long the token is valid for, in seconds, as part of the token response:
@@ -47,7 +59,7 @@ The API implements [Refresh Tokens](https://github.com/applicake/doorkeeper/wiki
 
 ## Omniauth Strategy
 
-We've made an [Omniauth Authentication Strategy](https://github.com/layervault/omniauth-layervault).
+If you're looking for something that makes a Rails integration more easy, we've made an [Omniauth Authentication Strategy](https://github.com/layervault/omniauth-layervault).
 
 ## Running the test suite.
 

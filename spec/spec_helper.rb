@@ -60,9 +60,9 @@ def random_md5
 end
 
 def test_org
-  'layervault-test'
+  ENV['TEST_ORG'] || 'layervault-test'
 end
 
 def test_project
- 'test-api-playground'
+ ENV['TEST_PROJECT'] || 'test-api-playground'
 end

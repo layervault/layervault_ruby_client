@@ -33,4 +33,19 @@ describe 'Projects', :vcr do
       assert_requested :delete, layervault_url("#{test_org}/Test Doge Project Sacrifice")
     end
   end
+
+  context '.move_project' do
+    it 'Moves the project' do
+      @client.create_project(test_org, 'TestMoveProject')
+      @client.move_project(test_org, 'TestMoveProject', to: 'DestinationTestFolder')
+      assert_requested :post, layervault_url("#{test_org}/TestMoveProject/move")
+    end
+  end
+
+  context '.change_project_folder_color' do
+    it 'changes the folder color' do
+      @client.change_project_folder_color(test_org, test_project, color: '#000000')
+      assert_requested :put, layervault_url("#{test_org}/#{test_project}")
+    end
+  end
 end
