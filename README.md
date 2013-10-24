@@ -79,8 +79,11 @@ The test suite uses VCR to save making requests against the server. You always h
   - LayerVault.client.me
   - LayerVault.client.keypair
 
-### Projects
+### Organizations
+
   - LayerVault.client.organization( organization_name )
+
+### Projects
   - LayerVault.client.project( organization_name, project )
   - LayerVault.client.create_project( organization_name, project )
   - LayerVault.client.delete_project( organization_name, project )
