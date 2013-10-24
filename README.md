@@ -1,6 +1,6 @@
 # LayerVault Ruby API Client
 
-This is the Ruby client library that wraps the [LayerVault API](https://github.com/layervault/api).
+This is the Ruby client library that wraps the [LayerVault API](https://github.com/layervault/api). It assumes you have used another oAuth 2 library to obtain and manage a valid access token.
 
 ## Supported oAuth flows
 
@@ -22,11 +22,32 @@ curl -i https://layervault.com/oauth/token \
 
 ``` curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me' ```
 
+## Initializing the Client
+
+You can initializr the client via Environmen Variables or by passing configurations options into the client when you create it, like this:
+
+    @client = LayerVault.client.new(access_token: 'your_access_token')
+
+Or you can also say:
+
+    LayerVault.client.access_token = 'access_token'
+
+### Environment Variables
+
+    ENV['LAYERVAULT_ACCESS_TOKEN'] - You LayerVault API access token
+    ENV['LAYERVAULT_API_ENDPOINT'] - The API Endpoint you wish to target calls against (defaults to ```https://layervault.com/api/v1/```)
+    ENV['LAYERVAULT_USER_AGENT'] - Defaults to ```LayerVault Ruby Gem #{LayerVault::VERSION}```
+
+### The User Agent
+
+You should set the User agent to include your email address so that in the event your client does something wrong we can contact you.
+
 ## Making API calls
 
 You can use the ```LayerVault.client.<api_operation>``` methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
 
 ```
+  LayerVault.client.access_token = 'access_token'
   p = LayerVault::Organization.for('layervault')
   p.create_project('my new project')
 ```

@@ -26,18 +26,6 @@ module LayerVault
         ENV['LAYERVAULT_API_ENDPOINT'] || API_ENDPOINT
       end
 
-      def client_id
-        ENV['LAYERVAULT_CLIENT_ID']
-      end
-
-      def client_secret
-        ENV['LAYERVAULT_SECRET']
-      end
-
-      def password
-        ENV['LAYERVAULT_PASSWORD']
-      end
-
       def user_agent
         ENV['LAYERVAULT_USER_AGENT'] || USER_AGENT
       end
