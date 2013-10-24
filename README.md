@@ -24,7 +24,7 @@ curl -i https://layervault.com/oauth/token \
 
 ## Making API calls
 
-You can use the LayerVault.client.<api_operation> methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
+You can use the ```LayerVault.client.<api_operation>``` methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
 
 ```
   p = LayerVault::Organization.for('layervault')
@@ -37,8 +37,8 @@ And so on.
 
 There's a very simple object model provided by classes that implement [Hashie](https://github.com/intridea/hashie) objects that wrap the JSON responses from the ```LayerVault.client``` interface. The objects mostly all follow a ```.for``` pattern that accepts the appropriate number of arguments for the level of nesting the object represents. For example,
 
-  - Organizations require the name of the organization: ```Organization.for('layervault')
-  - Projects require the name of the organization and the project name: ```Project.for('layervault', 'Designer News')
+  - Organizations require the name of the organization: ```Organization.for('layervault')```
+  - Projects require the name of the organization and the project name: ```Project.for('layervault', 'Designer News')```
   - ... and so on ...
 
 #### Associations
@@ -49,9 +49,13 @@ When using the simple object model, associations will be hydrated into the corre
 
 Access Tokens are valid for two hours only. When you request a token, you are also told how long the token is valid for, in seconds, as part of the token response:
 
-```
-{"access_token":"aec9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf","token_type":"bearer","expires_in":7200,"refresh_token":"afe9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf","scope":"user"}
-```
+    {
+      "access_token": "aec9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
+      "token_type": "bearer",
+      "expires_in": 7200,
+      "refresh_token": "afe9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
+      "scope": "user"
+    }
 
 Here we can see that the Token is valid for 7200 more seconds, or two hours.
 
@@ -63,6 +67,43 @@ If you're looking for something that makes a Rails integration more easy, we've 
 
 ## Running the test suite.
 
-```LAYERVAULT_API_ENDPOINT='https://layervault.com/api/v1/' LAYERVAULT_ACCESS_TOKEN=<your_access_token> be rspec spec/layervault/client ```
+You should create a test project called ```api-playground``` in your Organization. and make sure ```TEST_ORG``` and ```TEST_PROJECT``` environment variables are set correctly in the call below:
 
-The test suite uses VCR to save making requests against the server.
+```TEST_ORG='layervault-test' TEST_PROJECT='api-playground' LAYERVAULT_API_ENDPOINT='https://layervault.com/api/v1/' LAYERVAULT_ACCESS_TOKEN=<your_access_token> be rspec spec/layervault/client ```
+
+The test suite uses VCR to save making requests against the server. You always have the option of deleting the contents of the ```spec/cassettes``` folder to make real calls against the LayerVault servers.
+
+## Client Methods Summary
+
+### General
+  - LayerVault.client.me
+  - LayerVault.client.keypair
+
+### Projects
+  - LayerVault.client.organization( organization_name )
+  - LayerVault.client.project( organization_name, project )
+  - LayerVault.client.create_project( organization_name, project )
+  - LayerVault.client.delete_project( organization_name, project )
+  - LayerVault.client.move_project( organization_name, project, to )
+  - LayerVault.client.change_project_folder_color( organization_name, project, color )
+
+### Folders
+  - LayerVault.client.folder( organization_name, project, folder_path )
+  - LayerVault.client.create_folder( organization_name, project, folder_path )
+  - LayerVault.client.delete_folder( organization_name, project, folder_path )
+  - LayerVault.client.move_folder( organization_name, project, folder_path, new_folder )
+  - LayerVault.client.change_folder_color( organization_name, project, folder_path, color )
+
+### Files
+  - LayerVault.client.file( organization_name, project, folder_path, file_name )
+  - LayerVault.client.create_file( organization_name, project, folder_path, file_name )
+  - LayerVault.client.delete_file( organization_name, project, folder_path, file_name )
+  - LayerVault.client.move_file( organization_name, project, folder_path, new_folder, new_filename )
+  - LayerVault.client.sync_check( organization_name, project, folder_path, options )
+
+### Revisions
+  - LayerVault.client.revision( organization_name, project, folder_path, file_name, revision )
+  - LayerVault.client.previews( organization_name, project, folder_path, file_name, revision, options )
+  - LayerVault.client.revisions( organization_name, project, folder_path, file_name, revision, options )
+  - LayerVault.client.meta( organization_name, project, folder_path, file_name, revision )
+
