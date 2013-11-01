@@ -1,3 +1,7 @@
+require 'multi_json'
+require 'digest/md5'
+require 'uri'
+
 module LayerVault
   class Client
     module Files
@@ -10,10 +14,31 @@ module LayerVault
         delete "#{organization_name}/#{project_name}/#{path}/#{file_name}", options
       end
 
-      def create_file(organization_name, project_name, path, file_name, options={})
-        raise ClientParamsError.new("You must specify the MD5 option for the file you want to create.") unless options.fetch(:md5, nil)
-        raise ClientParamsError.new("You must specify the file_data or remote_url options for the file you want to create.") if (options.fetch(:file_data, nil) && options.fetch(:remote_url, nil))
-        put "#{organization_name}/#{project_name}/#{path}/#{file_name}", options
+      def create_file(organization_name, project_name, path, file_name, local_file_path, content_type )
+        md5 = Digest::MD5.hexdigest(::File.read(local_file_path))
+        options = {md5: md5}
+
+        s3_response = MultiJson.decode(put("#{organization_name}/#{project_name}/#{path}/#{file_name}", options))
+        s3_response.merge!( "Content-Type" => content_type)
+        s3_response.delete( "remote_url" )
+
+        payload = s3_response.merge({ file: Faraday::UploadIO.new(local_file_path, content_type) })
+
+        conn = Faraday.new('https://omnivore-scratch.s3.amazonaws.com') do |f|
+          f.request :multipart
+          f.request :url_encoded
+          f.adapter :net_http # This is what ended up making it work
+        end
+
+        response_from_s3 = conn.post('/', payload)
+        redirect = response_from_s3[:location]
+
+        # Add the access_token to the query
+        uri = URI.parse(redirect)
+        new_query_ar = URI.decode_www_form(uri.query) << ["access_token", LayerVault.client.access_token]
+        uri.query = URI.encode_www_form(new_query_ar)
+
+        re = conn.post( uri.to_s )
       end
 
       def move_file(organization_name, project_name, path, file_name, options={})
