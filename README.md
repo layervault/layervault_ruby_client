@@ -11,7 +11,7 @@ Currently only [Resource Owner Credentials](https://github.com/applicake/doorkee
 1. Register or choose an application from https://layervault.com/oauth/applications/ and note the ```client_id``` and ```client_secret```.
 2. Plug those values into:
 ```
-curl -i https://layervault.com/oauth/token \
+curl -i https://api.layervault.com/oauth/token \
 -F grant_type="password" \
 -F username="" \
 -F password="" \
@@ -20,7 +20,7 @@ curl -i https://layervault.com/oauth/token \
 ```
 3. You now have an access token. You can make API requests by calling via CURL like so:
 
-``` curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me' ```
+``` curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me' ```
 
 ## Initializing the Client
 
@@ -35,7 +35,7 @@ Or you can also say:
 ### Environment Variables
 
     ENV['LAYERVAULT_ACCESS_TOKEN'] - You LayerVault API access token
-    ENV['LAYERVAULT_API_ENDPOINT'] - The API Endpoint you wish to target calls against (defaults to ```https://layervault.com/api/v1/```)
+    ENV['LAYERVAULT_API_ENDPOINT'] - The API Endpoint you wish to target calls against (defaults to ```https://api.layervault.com/api/v1/```)
     ENV['LAYERVAULT_USER_AGENT'] - Defaults to ```LayerVault Ruby Gem #{LayerVault::VERSION}```
 
 ### The User Agent
@@ -90,7 +90,7 @@ If you're looking for something that makes a Rails integration more easy, we've 
 
 You should create a test project called ```api-playground``` in your Organization. and make sure ```TEST_ORG``` and ```TEST_PROJECT``` environment variables are set correctly in the call below:
 
-```TEST_ORG='layervault-test' TEST_PROJECT='api-playground' LAYERVAULT_API_ENDPOINT='https://layervault.com/api/v1/' LAYERVAULT_ACCESS_TOKEN=<your_access_token> be rspec spec/layervault/client ```
+```TEST_ORG='layervault-test' TEST_PROJECT='api-playground' LAYERVAULT_API_ENDPOINT='https://api.layervault.com/api/v1/' LAYERVAULT_ACCESS_TOKEN=<your_access_token> be rspec spec/layervault/client ```
 
 The test suite uses VCR to save making requests against the server. You always have the option of deleting the contents of the ```spec/cassettes``` folder to make real calls against the LayerVault servers.
 

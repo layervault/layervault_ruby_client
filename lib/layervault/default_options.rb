@@ -4,7 +4,7 @@ require 'layervault/middleware/raise_error'
 module LayerVault
   module Default
 
-    API_ENDPOINT = "https://layervault.com/api/v1/".freeze
+    API_ENDPOINT = "https://api.layervault.com/api/v1/".freeze
     USER_AGENT   = "LayerVault Ruby Gem #{LayerVault::VERSION}".freeze
 
     MIDDLEWARE = Faraday::Builder.new do |builder|
