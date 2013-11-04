@@ -8,23 +8,29 @@ Currently only [Resource Owner Credentials](https://github.com/applicake/doorkee
 
 ## Requesting an Access Token
 
-1. Register or choose an application from https://layervault.com/oauth/applications/ and note the ```client_id``` and ```client_secret```.
+1. Register or choose an application from https://layervault.com/oauth/applications/ and note the `client_id` and `client_secret`.
 2. Plug those values into:
+
 ```
 curl -i https://api.layervault.com/oauth/token \
--F grant_type="password" \
--F username="" \
--F password="" \
--F client_id="<client_id_goes_here>" \
--F client_secret="<client_secret_goes_here>"
+  -F grant_type="password" \
+  -F username="" \
+  -F password="" \
+  -F client_id="<client_id_goes_here>" \
+  -F client_secret="<client_secret_goes_here>"
 ```
 3. You now have an access token. You can make API requests by calling via CURL like so:
 
-``` curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me' ```
+``` 
+
+curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/me'
+
+ ```
 
 ## Initializing the Client
 
-You can initializr the client via Environmen Variables or by passing configurations options into the client when you create it, like this:
+You can initialize the client via Environmen Variables or by passing configurations options into the client when you create it, like this:
 
     @client = LayerVault.client.new(access_token: 'your_access_token')
 
@@ -35,8 +41,8 @@ Or you can also say:
 ### Environment Variables
 
     ENV['LAYERVAULT_ACCESS_TOKEN'] - You LayerVault API access token
-    ENV['LAYERVAULT_API_ENDPOINT'] - The API Endpoint you wish to target calls against (defaults to ```https://api.layervault.com/api/v1/```)
-    ENV['LAYERVAULT_USER_AGENT'] - Defaults to ```LayerVault Ruby Gem #{LayerVault::VERSION}```
+    ENV['LAYERVAULT_API_ENDPOINT'] - The API Endpoint you wish to target calls against (defaults to `https://api.layervault.com/api/v1/`)
+    ENV['LAYERVAULT_USER_AGENT'] - Defaults to `LayerVault Ruby Gem #{LayerVault::VERSION}`
 
 ### The User Agent
 
@@ -44,7 +50,7 @@ You should set the User agent to include your email address so that in the event
 
 ## Making API calls
 
-You can use the ```LayerVault.client.<api_operation>``` methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
+You can use the `LayerVault.client.<api_operation>` methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
 
 ```
   LayerVault.client.access_token = 'access_token'
