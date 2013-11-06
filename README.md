@@ -21,7 +21,7 @@ curl -i https://api.layervault.com/oauth/token \
 ```
 3. You now have an access token. You can make API requests by calling via CURL like so:
 
-``` 
+```
 curl -H 'Authorization: Bearer <your access token>' \
   'https://api.layervault.com/api/v1/me'
 ```
@@ -102,7 +102,6 @@ The test suite uses VCR to save making requests against the server. You always h
 
 ### General
   - LayerVault.client.me
-  - LayerVault.client.keypair
 
 ### Organizations
 
@@ -124,7 +123,7 @@ The test suite uses VCR to save making requests against the server. You always h
 
 ### Files
   - LayerVault.client.file( organization_name, project, folder_path, file_name )
-  - LayerVault.client.create_file( organization_name, project, folder_path, file_name )
+  - LayerVault.client.create_file( organization_name, project, folder_path, file_name, options )
   - LayerVault.client.delete_file( organization_name, project, folder_path, file_name )
   - LayerVault.client.move_file( organization_name, project, folder_path, new_folder, new_filename )
   - LayerVault.client.sync_check( organization_name, project, folder_path, options )

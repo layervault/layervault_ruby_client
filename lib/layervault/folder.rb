@@ -13,7 +13,7 @@ module LayerVault
     end
 
     def create_file(file_name, options={})
-      LayerVault.client.create_file( context.organization, context.project_name, context.folder_path, file_name, md5: options[:md5], file_data: options[:file_data], remote_url: options[:remote_url] )
+      LayerVault.client.create_file( context.organization, context.project_name, context.folder_path, file_name, options[:md5], options[:local_file_path], options[:content_type] )
     end
 
     def move_file(file_name, new_folder, new_filename)

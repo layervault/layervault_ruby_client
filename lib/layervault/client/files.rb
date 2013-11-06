@@ -14,13 +14,20 @@ module LayerVault
         delete "#{organization_name}/#{project_name}/#{path}/#{file_name}", options
       end
 
-      def create_file(organization_name, project_name, path, file_name, local_file_path, content_type )
+      def create_file(organization_name, project_name, path, file_name, options={} )
+        raise ClientParamsError.new("You must specify the local_file_path option to the file you want to upload.") unless options.fetch(:local_file_path, nil)
+        raise ClientParamsError.new("You must specify the content_type option to the content type of the file you are uploading.") unless options.fetch(:content_type, nil)
+
+        local_file_path = options.fetch(:local_file_path, nil)
+        content_type    = options.fetch(:content_type, nil)
+
         md5 = Digest::MD5.hexdigest(::File.read(local_file_path))
         options = {md5: md5}
 
-        s3_response = MultiJson.decode(put("#{organization_name}/#{project_name}/#{path}/#{file_name}", options))
+        json_response = put("#{organization_name}/#{project_name}/#{path}/#{file_name}", options)
+
+        s3_response = MultiJson.decode(json_response)
         s3_response.merge!( "Content-Type" => content_type)
-        s3_response.delete( "remote_url" )
 
         payload = s3_response.merge({ file: Faraday::UploadIO.new(local_file_path, content_type) })
 

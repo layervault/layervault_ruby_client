@@ -33,7 +33,7 @@ VCR.configure do |c|
     :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
     :match_requests_on => [:method,
-      VCR.request_matchers.uri_without_param(:md5)]
+      VCR.request_matchers.uri_without_param(:md5, :key, :etag, :access_token, :remote_url)]
   }
 
   c.cassette_library_dir = 'spec/cassettes'
@@ -61,6 +61,10 @@ end
 
 def test_org
   ENV['TEST_ORG'] || 'layervault-test'
+end
+
+def fixture_path_for(filename)
+  File.join(File.dirname(File.expand_path(__FILE__)), 'fixtures', filename)
 end
 
 def test_project
