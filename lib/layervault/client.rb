@@ -6,7 +6,6 @@ require 'layervault/mixins/configurable'
 require 'layervault/mixins/connection'
 
 require 'layervault/client/users'
-require 'layervault/client/keypair'
 require 'layervault/client/organizations'
 require 'layervault/client/projects'
 require 'layervault/client/folders'
@@ -32,7 +31,6 @@ module LayerVault
     include LayerVault::Connection
 
     include LayerVault::Client::Users
-    include LayerVault::Client::Keypair
     include LayerVault::Client::Organizations
     include LayerVault::Client::Projects
     include LayerVault::Client::Folders

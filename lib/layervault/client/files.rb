@@ -14,7 +14,10 @@ module LayerVault
         delete "#{organization_name}/#{project_name}/#{path}/#{file_name}", options
       end
 
-      def create_file(organization_name, project_name, path, file_name, local_file_path, content_type )
+      def create_file(organization_name, project_name, path, file_name, options={} )
+        local_file_path = options.fetch(:local_file_path, nil)
+        content_type    = options.fetch(:content_type, nil)
+
         md5 = Digest::MD5.hexdigest(::File.read(local_file_path))
         options = {md5: md5}
 
