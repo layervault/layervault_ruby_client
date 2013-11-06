@@ -15,6 +15,9 @@ module LayerVault
       end
 
       def create_file(organization_name, project_name, path, file_name, options={} )
+        raise ClientParamsError.new("You must specify the local_file_path option to the file you want to upload.") unless options.fetch(:local_file_path, nil)
+        raise ClientParamsError.new("You must specify the content_type option to the content type of the file you are uploading.") unless options.fetch(:content_type, nil)
+
         local_file_path = options.fetch(:local_file_path, nil)
         content_type    = options.fetch(:content_type, nil)
 
