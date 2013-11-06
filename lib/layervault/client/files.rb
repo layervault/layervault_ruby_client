@@ -18,9 +18,10 @@ module LayerVault
         md5 = Digest::MD5.hexdigest(::File.read(local_file_path))
         options = {md5: md5}
 
-        s3_response = MultiJson.decode(put("#{organization_name}/#{project_name}/#{path}/#{file_name}", options))
+        json_response = put("#{organization_name}/#{project_name}/#{path}/#{file_name}", options)
+
+        s3_response = MultiJson.decode(json_response)
         s3_response.merge!( "Content-Type" => content_type)
-        s3_response.delete( "remote_url" )
 
         payload = s3_response.merge({ file: Faraday::UploadIO.new(local_file_path, content_type) })
 
