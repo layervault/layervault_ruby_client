@@ -3,6 +3,7 @@ require 'hashie'
 module LayerVault
   class Model < Hashie::Mash
     CLASS_MAP = {
+      organizations: 'LayerVault::Organization',
       projects: 'LayerVault::Project',
       folders: 'LayerVault::Folder',
       files: 'LayerVault::File',

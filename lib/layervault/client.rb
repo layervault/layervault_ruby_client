@@ -19,7 +19,6 @@ require 'layervault/project'
 require 'layervault/folder'
 require 'layervault/file'
 require 'layervault/revision'
-require 'layervault/keypair'
 
 module LayerVault
 
