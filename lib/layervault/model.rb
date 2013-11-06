@@ -2,13 +2,6 @@ require 'hashie'
 
 module LayerVault
   class Model < Hashie::Mash
-    CLASS_MAP = {
-      projects: 'LayerVault::Project',
-      folders: 'LayerVault::Folder',
-      files: 'LayerVault::File',
-      revisions: 'LayerVault::Revision'
-    }
-
     class << self
       def build_associations(hash, *associations)
         mapping = {}
@@ -21,12 +14,19 @@ module LayerVault
         instance = new(hash)
 
         associations.each do |association|
-          klass = Kernel.const_get(CLASS_MAP[association])
+          klass = association_to_class(association)
           objs = mapping[association].map { |p| klass.new(p) }
           instance[association.to_s] = objs
         end
 
         instance
+      end
+
+      private
+
+      def association_to_class(association)
+        class_name = association.to_s.chomp('s').capitalize
+        LayerVault.const_get(class_name)
       end
     end
 
