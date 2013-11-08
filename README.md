@@ -28,13 +28,14 @@ curl -H 'Authorization: Bearer <your access token>' \
 
 ## Initializing the Client
 
-You can initialize the client via Environmen Variables or by passing configurations options into the client when you create it, like this:
+You can initialize the client via Environment Variables or by passing configurations options into the client when you create it, like this:
 
-    @client = LayerVault.client.new(access_token: 'your_access_token')
+    @client = LayerVault::Client.new(access_token: 'your_access_token', api_endpoint: 'your_api_endpoint')
 
 Or you can also say:
 
     LayerVault.client.access_token = 'access_token'
+    LayerVault.client.api_endpoint = 'api_endpoint'
 
 ### Environment Variables
 
