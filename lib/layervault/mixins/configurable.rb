@@ -27,7 +27,7 @@ module LayerVault
     alias setup reset!
 
     def api_endpoint
-      File.join(@api_endpoint, "")
+      ::File.join(@api_endpoint, "")
     end
 
     private
