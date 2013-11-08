@@ -9,13 +9,13 @@ Currently only [Resource Owner Credentials](https://github.com/applicake/doorkee
 ## Requesting an Access Token
 
 1. Register or choose an application from https://layervault.com/oauth/applications/ and note the `client_id` and `client_secret`.
-2. Plug those values into:
+2. Plug those values into the following curl snippet, including your LayerVault username and password:
 
 ```
 curl -i https://api.layervault.com/oauth/token \
   -F grant_type="password" \
-  -F username="" \
-  -F password="" \
+  -F username="<username_goes_here>" \
+  -F password="<password_goes_here>" \
   -F client_id="<client_id_goes_here>" \
   -F client_secret="<client_secret_goes_here>"
 ```
