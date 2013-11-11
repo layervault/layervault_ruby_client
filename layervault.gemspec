@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["john@mcdowall.info", "ryan@layervault.com", "kelly@layervault.com"]
   spec.description   = %q{The LayerVault Ruby API client.}
   spec.summary       = %q{Provides Ruby native wrappers for the LayerVault API.}
-  spec.homepage      = ""
+  spec.homepage      = "https://layervault.com"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
