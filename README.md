@@ -2,6 +2,20 @@
 
 This is the Ruby client library that wraps the [LayerVault API](https://github.com/layervault/api). It assumes you have used another oAuth 2 library to obtain and manage a valid access token.
 
+## Installation
+
+Put this in your Gemfile and smoke it:
+
+```ruby
+gem 'layervault'
+```
+
+Or install it:
+
+```shell
+$ gem install layervault
+```
+
 ## Supported oAuth flows
 
 Currently only [Resource Owner Credentials](https://github.com/applicake/doorkeeper/wiki/Using-Resource-Owner-Password-Credentials-flow) and [Client Credentials](https://github.com/applicake/doorkeeper/wiki/Client-Credentials-flow) are supported. Client credentials are pretty much useless as 99% of the API requires a User as context for the operations.
