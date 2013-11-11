@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'layervault/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "layervault_ruby_client"
+  spec.name          = "layervault"
   spec.version       = LayerVault::VERSION
-  spec.authors       = ["John McDowall"]
-  spec.email         = ["john@mcdowall.info"]
+  spec.authors       = ["John McDowall", "Ryan LeFevre", "Kelly Sutton"]
+  spec.email         = ["john@mcdowall.info", "ryan@layervault.com", "kelly@layervault.com"]
   spec.description   = %q{The LayerVault Ruby API client.}
   spec.summary       = %q{Provides Ruby native wrappers for the LayerVault API.}
   spec.homepage      = ""
