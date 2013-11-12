@@ -44,18 +44,29 @@ curl -H 'Authorization: Bearer <your access token>' \
 
 You can initialize the client via Environment Variables or by passing configurations options into the client when you create it, like this:
 
-    @client = LayerVault::Client.new(access_token: 'your_access_token', api_endpoint: 'your_api_endpoint')
+``` ruby
+@client = LayerVault::Client.new(access_token: 'your_access_token', api_endpoint: 'your_api_endpoint')
+```
 
 Or you can also say:
 
-    LayerVault.client.access_token = 'access_token'
-    LayerVault.client.api_endpoint = 'api_endpoint'
+``` ruby
+LayerVault.client.access_token = 'access_token'
+LayerVault.client.api_endpoint = 'api_endpoint'
+```
 
 ### Environment Variables
 
-    ENV['LAYERVAULT_ACCESS_TOKEN'] - You LayerVault API access token
-    ENV['LAYERVAULT_API_ENDPOINT'] - The API Endpoint you wish to target calls against (defaults to `https://api.layervault.com/api/v1/`)
-    ENV['LAYERVAULT_USER_AGENT'] - Defaults to `LayerVault Ruby Gem #{LayerVault::VERSION}`
+``` ruby
+# You LayerVault API access token
+ENV['LAYERVAULT_ACCESS_TOKEN']
+
+# The API Endpoint you wish to target calls against (defaults to https://api.layervault.com/api/v1/)
+ENV['LAYERVAULT_API_ENDPOINT']
+
+# Defaults to LayerVault Ruby Gem #{LayerVault::VERSION}
+ENV['LAYERVAULT_USER_AGENT']
+```
 
 ### The User Agent
 
@@ -65,10 +76,10 @@ You should set the User agent to include your email address so that in the event
 
 You can use the `LayerVault.client.<api_operation>` methods to call the API to perform actions. Alternatively, each API object has simple object model that allows you to say:
 
-```
-  LayerVault.client.access_token = 'access_token'
-  p = LayerVault::Organization.for('layervault')
-  p.create_project('my new project')
+``` ruby
+LayerVault.client.access_token = 'access_token'
+p = LayerVault::Organization.for('layervault')
+p.create_project('my new project')
 ```
 
 And so on.
@@ -89,13 +100,15 @@ When using the simple object model, associations will be hydrated into the corre
 
 Access Tokens are valid for two hours only. When you request a token, you are also told how long the token is valid for, in seconds, as part of the token response:
 
-    {
-      "access_token": "aec9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
-      "token_type": "bearer",
-      "expires_in": 7200,
-      "refresh_token": "afe9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
-      "scope": "user"
-    }
+``` json
+{
+  "access_token": "aec9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
+  "token_type": "bearer",
+  "expires_in": 7200,
+  "refresh_token": "afe9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
+  "scope": "user"
+}
+```
 
 Here we can see that the Token is valid for 7200 more seconds, or two hours.
 
