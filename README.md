@@ -91,13 +91,13 @@ And so on.
 
 There's a very simple object model provided by classes that implement [Hashie](https://github.com/intridea/hashie) objects that wrap the JSON responses from the ```LayerVault.client``` interface. The objects mostly all follow a ```.for``` pattern that accepts the appropriate number of arguments for the level of nesting the object represents. For example,
 
-  - Organizations require the name of the organization: ```Organization.for('layervault')```
-  - Projects require the name of the organization and the project name: ```Project.for('layervault', 'Designer News')```
+  - Organizations require the permalink of the organization: ```Organization.for('layervault')```
+  - Projects require the permalink of the organization and the project name: ```Project.for('layervault', 'Designer News')```
   - ... and so on ...
 
 #### Associations
 
-When using the simple object model, associations will be hydrated into the correct child objects allowing a simple level of traversal down the object model hierarchy.
+When using the simple object model, associations will be hydrated into the correct child objects for the immediate child relationships only, allowing a simple level of traversal down the object model hierarchy. There is no lazy loding support that will automatically hydrated any deeper associations - you must perform new queries.
 
 ## Access Tokens
 
@@ -136,32 +136,32 @@ The test suite uses VCR to save making requests against the server. You always h
 
 ### Organizations
 
-  - LayerVault.client.organization( organization_name )
+  - LayerVault.client.organization( organization_permalink )
 
 ### Projects
-  - LayerVault.client.project( organization_name, project )
-  - LayerVault.client.create_project( organization_name, project )
-  - LayerVault.client.delete_project( organization_name, project )
-  - LayerVault.client.move_project( organization_name, project, to )
-  - LayerVault.client.change_project_folder_color( organization_name, project, color )
+  - LayerVault.client.project( organization_permalink, project )
+  - LayerVault.client.create_project( organization_permalink, project )
+  - LayerVault.client.delete_project( organization_permalink, project )
+  - LayerVault.client.move_project( organization_permalink, project, to )
+  - LayerVault.client.change_project_folder_color( organization_permalink, project, color )
 
 ### Folders
-  - LayerVault.client.folder( organization_name, project, folder_path )
-  - LayerVault.client.create_folder( organization_name, project, folder_path )
-  - LayerVault.client.delete_folder( organization_name, project, folder_path )
-  - LayerVault.client.move_folder( organization_name, project, folder_path, new_folder )
-  - LayerVault.client.change_folder_color( organization_name, project, folder_path, color )
+  - LayerVault.client.folder( organization_permalink, project, folder_path )
+  - LayerVault.client.create_folder( organization_permalink, project, folder_path )
+  - LayerVault.client.delete_folder( organization_permalink, project, folder_path )
+  - LayerVault.client.move_folder( organization_permalink, project, folder_path, new_folder )
+  - LayerVault.client.change_folder_color( organization_permalink, project, folder_path, color )
 
 ### Files
-  - LayerVault.client.file( organization_name, project, folder_path, file_name )
-  - LayerVault.client.create_file( organization_name, project, folder_path, file_name, options )
-  - LayerVault.client.delete_file( organization_name, project, folder_path, file_name )
-  - LayerVault.client.move_file( organization_name, project, folder_path, new_folder, new_filename )
-  - LayerVault.client.sync_check( organization_name, project, folder_path, options )
+  - LayerVault.client.file( organization_permalink, project, folder_path, file_name )
+  - LayerVault.client.create_file( organization_permalink, project, folder_path, file_name, options )
+  - LayerVault.client.delete_file( organization_permalink, project, folder_path, file_name )
+  - LayerVault.client.move_file( organization_permalink, project, folder_path, new_folder, new_filename )
+  - LayerVault.client.sync_check( organization_permalink, project, folder_path, options )
 
 ### Revisions
-  - LayerVault.client.revision( organization_name, project, folder_path, file_name, revision )
-  - LayerVault.client.previews( organization_name, project, folder_path, file_name, revision, options )
-  - LayerVault.client.revisions( organization_name, project, folder_path, file_name, revision, options )
-  - LayerVault.client.meta( organization_name, project, folder_path, file_name, revision )
+  - LayerVault.client.revision( organization_permalink, project, folder_path, file_name, revision )
+  - LayerVault.client.previews( organization_permalink, project, folder_path, file_name, revision, options )
+  - LayerVault.client.revisions( organization_permalink, project, folder_path, file_name, revision, options )
+  - LayerVault.client.meta( organization_permalink, project, folder_path, file_name, revision )
 
