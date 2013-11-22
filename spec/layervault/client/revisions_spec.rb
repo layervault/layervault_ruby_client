@@ -16,17 +16,10 @@ describe 'Revisions', :vcr do
     end
   end
 
-  context '.previews' do
-    it 'returns the Preview info' do
-      @client.previews(test_org, test_project, '', 'dhh_face.png', 1, w:100, h:100)
-      assert_requested :get, layervault_url("#{test_org}/#{test_project}/dhh_face.png/1/previews?h=100&w=100")
-    end
-  end
-
-  context '.revisions' do
-    it 'returns the Revisions info' do
-      @client.revisions(test_org, test_project, '', 'dhh_face.png', 1, first_seen:1)
-      assert_requested :get, layervault_url("#{test_org}/#{test_project}/dhh_face.png/1/revisions?first_seen=1")
+  context '.preview' do
+    it 'returns the specific Preview info' do
+      @client.preview(test_org, test_project, '', 'dhh_face.png', 1, w: 100, h: 100)
+      assert_requested :get, layervault_url("#{test_org}/#{test_project}/dhh_face.png/1/preview?h=100&w=100")
     end
   end
 

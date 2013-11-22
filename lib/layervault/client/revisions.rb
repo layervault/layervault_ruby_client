@@ -5,14 +5,9 @@ module LayerVault
         get "#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}"
       end
 
-      def previews(organization_name, project_name, path, file_name, revision, options={})
+      def preview(organization_name, project_name, path, file_name, revision, options={})
         raise ClientParamsError.new("You must specify the :w (width) and :h (height) options for the previews.") unless options.fetch(:w, nil) && options.fetch(:h, nil)
-        get "#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/previews", options
-      end
-
-      def revisions(organization_name, project_name, path, file_name, revision, options={})
-        raise ClientParamsError.new("You must specify the :first_seen or :latest_seen option for the file.") if options.fetch(:first_seen, nil) && options.fetch(:latest_seen, nil)
-        get "#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/revisions", options
+        get "#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/preview", options
       end
 
       def meta(organization_name, project_name, path, file_name, revision)

@@ -59,6 +59,16 @@ module LayerVault
         raise ClientParamsError.new("You must specify the md5 option of the file you are trying to sync check.") unless options.fetch(:md5, nil)
         get "#{organization_name}/#{project_name}/#{path}/#{file_name}/sync_check", options
       end
+
+      def previews(organization_name, project_name, path, file_name, options={})
+        raise ClientParamsError.new("You must specify the :w (width) and :h (height) options for the previews.") unless options.fetch(:w, nil) && options.fetch(:h, nil)
+        get "#{organization_name}/#{project_name}/#{path}/#{file_name}/previews", options
+      end
+
+      def revisions(organization_name, project_name, path, file_name, options={})
+        raise ClientParamsError.new("You must specify the :first_seen or :latest_seen option for the file.") if options.fetch(:first_seen, nil) && options.fetch(:latest_seen, nil)
+        get "#{organization_name}/#{project_name}/#{path}/#{file_name}/revisions", options
+      end
     end
   end
 end

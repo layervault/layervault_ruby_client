@@ -12,10 +12,6 @@ module LayerVault
       LayerVault.client.previews(organization, project, folder_path, file_name, revision, w: width, h: height)
     end
 
-    def revisions(options={})
-      LayerVault.client.revisions(organization, project, folder_path, file_name, revision, first_seen: options[:first_seen], last_seen: options[:last_seen])
-    end
-
     def meta
       LayerVault.client.meta(organization, project, folder_path, file_name, revision)
     end
