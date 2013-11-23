@@ -85,7 +85,14 @@ p = LayerVault::Organization.for('layervault')
 p.create_project('my new project')
 ```
 
-And so on.
+And so on. An example of using the Simple Object Model looks like:
+
+```ruby
+2.0.0-p247 :003 > revision = LayerVault::Revision.for("kellys-second-dropbox-test-org", 'Third Project', '', 'Grîeps.psd', 1)
+ => #<LayerVault::Revision context=#<LayerVault::Revision file_name="Grîeps.psd" folder_path="" organization="kellys-second-dropbox-test-org" project="Third Project" revision=1> deleted_at=nil download_url="https://layervault.com/files/download_node/BghUzqVDpJ" full_url="https://layervault.com/kellys-second-dropbox-test-org/Third%20Project/Gr%C3%AEeps.psd" local_path="~/LayerVault/Third Project/Grîeps.psd" md5=nil modified_at="2013-11-22T01:59:11Z" name="Grîeps.psd" revision_number=4 revisions=[#<LayerVault::Revision created_at="2013-11-20T23:24:54Z" download_url="https://layervault.com/files/download_node/QH1QqU1SjS" full_url="https://layervault.com/kellys-second-dropbox-test-org/Third%20Project/Gr%C3%AEeps.psd/1" id=nil md5=nil revision_number=1 shortened_url="http://lyrv.lt/QH1QqU1SjS" tree_revision_id=732917 updated_at="2013-11-20T23:25:16Z">, #<LayerVault::Revision created_at="2013-11-20T23:25:30Z" download_url="https://layervault.com/files/download_node/7xXIVAriIQ" full_url="https://layervault.com/kellys-second-dropbox-test-org/Third%20Project/Gr%C3%AEeps.psd/2" id=nil md5=nil revision_number=2 shortened_url="http://lyrv.lt/7xXIVAriIQ" tree_revision_id=732922 updated_at="2013-11-20T23:26:02Z">, #<LayerVault::Revision created_at="2013-11-20T23:26:07Z" download_url="https://layervault.com/files/download_node/InR5lHOx6k" full_url="https://layervault.com/kellys-second-dropbox-test-org/Third%20Project/Gr%C3%AEeps.psd/3" id=nil md5=nil revision_number=3 shortened_url="http://lyrv.lt/InR5lHOx6k" tree_revision_id=732926 updated_at="2013-11-20T23:26:30Z">, #<LayerVault::Revision created_at="2013-11-22T01:59:11Z" download_url="https://layervault.com/files/download_node/BghUzqVDpJ" full_url="https://layervault.com/kellys-second-dropbox-test-org/Third%20Project/Gr%C3%AEeps.psd/4" id=nil md5=nil revision_number=4 shortened_url="http://lyrv.lt/BghUzqVDpJ" tree_revision_id=737792 updated_at="2013-11-22T01:59:33Z">] shortened_url="http://lyrv.lt/sDNUs3aXGR" updated_at="2013-11-22T01:59:33Z">
+2.0.0-p247 :004 > revision.preview(100,100)
+ => "\"https://layervault-preview.imgix.net/data/9c09ef898aaf600ee3f9750b8aa6157a?w=100&h=100&s=998b23bd5d90d105a9b2a4c3ef082506\""
+ ```
 
 ### Simple Object Model
 
@@ -158,10 +165,11 @@ The test suite uses VCR to save making requests against the server. You always h
   - LayerVault.client.delete_file( organization_permalink, project, folder_path, file_name )
   - LayerVault.client.move_file( organization_permalink, project, folder_path, new_folder, new_filename )
   - LayerVault.client.sync_check( organization_permalink, project, folder_path, options )
+  - LayerVault.client.previews( organization_permalink, project, folder_path, file_name, options )
+  - LayerVault.client.revisions( organization_permalink, project, folder_path, file_name, options )
 
 ### Revisions
   - LayerVault.client.revision( organization_permalink, project, folder_path, file_name, revision )
-  - LayerVault.client.previews( organization_permalink, project, folder_path, file_name, revision, options )
-  - LayerVault.client.revisions( organization_permalink, project, folder_path, file_name, revision, options )
+  - LayerVault.client.preview( organization_permalink, project, folder_path, file_name, revision, options )
   - LayerVault.client.meta( organization_permalink, project, folder_path, file_name, revision )
 
