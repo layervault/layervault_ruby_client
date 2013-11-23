@@ -8,12 +8,12 @@ module LayerVault
       end
     end
 
-    def previews(width, height)
-      LayerVault.client.previews(organization, project, folder_path, file_name, revision, w: width, h: height)
+    def preview(width, height)
+      LayerVault.client.preview(context.organization, context.project, context.folder_path, context.file_name, context.revision, w: width, h: height)
     end
 
     def meta
-      LayerVault.client.meta(organization, project, folder_path, file_name, revision)
+      LayerVault.client.meta(context.organization, context.project, context.folder_path, context.file_name, context.revision)
     end
   end
 end
