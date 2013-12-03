@@ -172,4 +172,5 @@ The test suite uses VCR to save making requests against the server. You always h
   - LayerVault.client.revision( organization_permalink, project, folder_path, file_name, revision )
   - LayerVault.client.preview( organization_permalink, project, folder_path, file_name, revision, options )
   - LayerVault.client.meta( organization_permalink, project, folder_path, file_name, revision )
+  - LayerVault.client.feedback_items( organization_permalink, project, folder_path, file_name, revision )
 
