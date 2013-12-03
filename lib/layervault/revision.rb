@@ -15,5 +15,9 @@ module LayerVault
     def meta
       LayerVault.client.meta(context.organization, context.project, context.folder_path, context.file_name, context.revision)
     end
+
+    def feedback_items
+      LayerVault.client.feedback_items(context.organization, context.project, context.folder_path, context.file_name, context.revision)
+    end
   end
 end

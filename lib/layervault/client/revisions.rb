@@ -13,6 +13,10 @@ module LayerVault
       def meta(organization_name, project_name, path, file_name, revision)
         get "#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/meta"
       end
+
+      def feedback_items(organization_name, project_name, path, file_name, revision)
+        get "#{organization_name}/#{project_name}/#{path}/#{file_name}/#{revision}/feedback_items"
+      end
     end
   end
 end
